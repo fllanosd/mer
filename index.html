@@ -63,11 +63,11 @@
     <div class="modal-content" id="modalContent">
       <form id="formulario">
 		<label class="input-label">% Retención</label>
-        <input class="input-field" type="text" name="retencion" value="17"><br><br>
+        <input class="input-field" type="text" name="retencion" value="17" required><br><br>
 		<label class="input-label">% Ganancia</label>
-		<input class="input-field" type="text" name="gananciamer" value="3"><br><br>
+		<input class="input-field" type="text" name="gananciamer" value="3" required><br><br>
         <label class="input-label">Cantidad de Kilómetros</label>
-        <input class="input-field" type="text" name="kilometros"><br><br>
+        <input class="input-field" type="text" name="kilometros" required><br><br>
         <label class="input-label">Tipo de Tarifa</label><br><br>
         <label class="input-label">Diurna</label>
         <input type="radio" name="tipotarifa" value="750" checked>
@@ -109,9 +109,30 @@
     function calcularFormulario() {
 		var formulario = document.getElementById('formulario');
 		//Pasa todos los datos del formulario
-		calcularDatos(formulario);
-		limpiarCampos(formulario);
-	}	
+		if (validarDatosFormulario(formulario)){
+			calcularDatos(formulario);
+			limpiarCampos(formulario);
+		}
+	}
+	
+	function validarDatosFormulario(formulario) {
+		var formulario = document.getElementById('formulario');
+		//Valida todos los campos de un formulario
+		if (formulario.retencion.value==""){
+			alert("Debe ingresar la Retención"); 
+			return false;
+		}
+		else if (formulario.gananciamer.value==""){
+			alert("Debe ingresar la Ganancia"); 
+			return false;
+		}
+		else 	if (formulario.kilometros.value==""){
+			alert("Debe ingresar los kilometros a calcular"); 
+			return false;
+		}
+		else return true;
+		
+	}
 	
 	function calcularDatos(formulario) {
 		var tipotarifa;
