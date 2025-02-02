@@ -77,33 +77,33 @@
     </div>
   </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var modalContainer = document.getElementById('modalContainer');
-      var modalContent = document.getElementById('modalContent');
+	document.addEventListener('DOMContentLoaded', function() {
+      	var modalContainer = document.getElementById('modalContainer');
+      	var modalContent = document.getElementById('modalContent');
 
-      setTimeout(function() {
-        modalContent.classList.add('show');
-      }, 100);
-    });
+      	setTimeout(function() {
+        	modalContent.classList.add('show');
+      	}, 100);
+    	});
 
-    function enviarFormulario() {
-      var formulario = document.getElementById('formulario');
-      limpiarCampos();
-    }
+    	function enviarFormulario() {
+      		var formulario = document.getElementById('formulario');
+      		limpiarCampos();
+    	}
 
-    function limpiarCampos() {
-      var inputs = document.querySelectorAll('.input-field');
-      inputs.forEach(function(input) {
-        input.value = '';
-      });
-    }
+    	function limpiarCampos() {
+      		var inputs = document.querySelectorAll('.input-field');
+      		inputs.forEach(function(input) {
+        	input.value = '';
+      		});
+    	}
 
-    function calcularFormulario() {
-      var formulario = document.getElementById('formulario');
-      //Pasa todos los datos del formulario
-      calcularDatos(formulario);
-      limpiarCampos();
-    }	
+    	function calcularFormulario() {
+      		var formulario = document.getElementById('formulario');
+      		//Pasa todos los datos del formulario
+      		calcularDatos(formulario);
+      		limpiarCampos();
+    	}	
 	function calcularDatos(formulario) {
 		var tipotarifa;
 		var pagoconductora;
