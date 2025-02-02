@@ -62,11 +62,15 @@
   <div class="modal-container" id="modalContainer">
     <div class="modal-content" id="modalContent">
       <form id="formulario">
+		<label class="input-label">% Retención</label>
+        <input class="input-field" type="text" name="retencion" value="17"><br><br>
+		<label class="input-label">% Ganancia</label>
+		<input class="input-field" type="text" name="gananciamer" value="3"><br><br>
         <label class="input-label">Cantidad de Kilómetros</label>
         <input class="input-field" type="text" name="kilometros"><br><br>
         <label class="input-label">Tipo de Tarifa</label><br><br>
         <label class="input-label">Diurna</label>
-        <input type="radio" name="tipotarifa" value="750">
+        <input type="radio" name="tipotarifa" value="750" checked>
         <label class="input-label">Nocturna</label>
         <input type="radio" name="tipotarifa" value="900">
         <label class="input-label">Concierto</label>
@@ -78,32 +82,37 @@
   </div>
   <script>
 	document.addEventListener('DOMContentLoaded', function() {
-      	var modalContainer = document.getElementById('modalContainer');
-      	var modalContent = document.getElementById('modalContent');
+		var modalContainer = document.getElementById('modalContainer');
+		var modalContent = document.getElementById('modalContent');
+	
+		setTimeout(function() {
+			modalContent.classList.add('show');
+			}, 100);
+	});
 
-      	setTimeout(function() {
-        	modalContent.classList.add('show');
-      	}, 100);
-    	});
+	function enviarFormulario() {
+		var formulario = document.getElementById('formulario');
+		limpiarCampos();
+	}
 
-    	function enviarFormulario() {
-      		var formulario = document.getElementById('formulario');
-      		limpiarCampos();
-    	}
+	function limpiarCampos(formulario) {
+	
+		formulario.kilometros.value="";
+	  
+		//Se usa para limpiar todos los datos del formulario
+		//var inputs = document.querySelectorAll('.input-field');
+		//inputs.forEach(function(input) {
+		//  input.value = '';
+		//});
+	}
 
-    	function limpiarCampos() {
-      		var inputs = document.querySelectorAll('.input-field');
-      		inputs.forEach(function(input) {
-        	input.value = '';
-      		});
-    	}
-
-    	function calcularFormulario() {
-      		var formulario = document.getElementById('formulario');
-      		//Pasa todos los datos del formulario
-      		calcularDatos(formulario);
-      		limpiarCampos();
-    	}	
+    function calcularFormulario() {
+		var formulario = document.getElementById('formulario');
+		//Pasa todos los datos del formulario
+		calcularDatos(formulario);
+		limpiarCampos(formulario);
+	}	
+	
 	function calcularDatos(formulario) {
 		var tipotarifa;
 		var pagoconductora;
@@ -121,15 +130,14 @@
 		}
 		//Cálculo de valores
 		pagoconductora = formulario.kilometros.value * formulario.tipotarifa.value;
-		retencion = pagoconductora * (17/100); //Cobro de un 17% por retención
-		gananciamer = pagoconductora * (3/100); //Cobro de un 3% por ganancias de mujeres en ruta
+		//retencion = pagoconductora * formulario.retencion.value; 
+		retencion = pagoconductora * (formulario.retencion.value/100); //Cobro de un 17% por retención
+		gananciamer = pagoconductora * (formulario.gananciamer.value/100); //Cobro de un 3% por ganancias de mujeres en ruta
 		pagopasajera = retencion + gananciamer + pagoconductora;
 	
 		//Para guardar en excel el registro de la persona
 		alert("Kilómetros:" + formulario.kilometros.value + "\nTipo de Tarifa:" + tipotarifa + "\nValor Tarifa:" + formulario.tipotarifa.value+ "\nRetención:" + retencion+ "\nGanancia Mujeres en Ruta:" + gananciamer+ "\nPago Conductora:" + pagoconductora+ "\nPago Pasajera:" + pagopasajera);
 	}
-    
-    
   </script>
 </body>
 </html>
