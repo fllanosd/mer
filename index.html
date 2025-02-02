@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <style>
+<style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
@@ -53,7 +53,8 @@
     .submit-button:hover {
       background-color: #45a049;
     }
-  </style>
+</style>
+
 <head>
   <base target="_top">
 </head>
@@ -87,9 +88,7 @@
 
     function enviarFormulario() {
       var formulario = document.getElementById('formulario');
-      google.script.run.agregarDatos(formulario);
       limpiarCampos();
-      //google.script.host.close();
     }
 
     function limpiarCampos() {
@@ -101,10 +100,36 @@
 
     function calcularFormulario() {
       var formulario = document.getElementById('formulario');
-      google.script.run.calcularDatos(formulario);
+      //Pasa todos los datos del formulario
+      calcularDatos(formulario);
       limpiarCampos();
-      //google.script.host.close();
-    }
+    }	
+	function calcularDatos(formulario) {
+		var tipotarifa;
+		var pagoconductora;
+		var retencion;
+		var gananciamer;
+		var pagopasajera;
+		
+		//Para registrar el tipo de tarifa
+		if(formulario.tipotarifa.value=="750"){
+			tipotarifa = "Diurna";
+		} else if (formulario.tipotarifa.value=="900") {
+			tipotarifa = "Nocturna";
+		} else {
+			tipotarifa = "Concierto";
+		}
+		//Cálculo de valores
+		pagoconductora = formulario.kilometros.value * formulario.tipotarifa.value;
+		retencion = pagoconductora * (17/100); //Cobro de un 17% por retención
+		gananciamer = pagoconductora * (3/100); //Cobro de un 3% por ganancias de mujeres en ruta
+		pagopasajera = retencion + gananciamer + pagoconductora;
+	
+		//Para guardar en excel el registro de la persona
+		alert("Kilómetros:" + formulario.kilometros.value + "\nTipo de Tarifa:" + tipotarifa + "\nValor Tarifa:" + formulario.tipotarifa.value+ "\nRetención:" + retencion+ "\nGanancia Mujeres en Ruta:" + gananciamer+ "\nPago Conductora:" + pagoconductora+ "\nPago Pasajera:" + pagopasajera);
+	}
+    
+    
   </script>
 </body>
 </html>
