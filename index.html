@@ -152,10 +152,10 @@
 		//Cálculo de valores
 		pagoconductora = formulario.kilometros.value * formulario.tipotarifa.value;
 		//retencion = pagoconductora * formulario.retencion.value; 
-		retencion = pagoconductora * (formulario.retencion.value/100); //Cobro de un 17% por retención
-		gananciamer = pagoconductora * (formulario.gananciamer.value/100); //Cobro de un 3% por ganancias de mujeres en ruta
+		retencion = Math.round(pagoconductora * (formulario.retencion.value/100)); //Cobro de un 17% por retención, se redondea para arriba con la función de Math.round
+		gananciamer = Math.round(pagoconductora * (formulario.gananciamer.value/100)); //Cobro de un 3% por ganancias de mujeres en ruta,, se redondea para arriba con la función de Math.round
 		pagopasajera = retencion + gananciamer + pagoconductora;
-	
+
 		//Para guardar en excel el registro de la persona
 		alert("Kilómetros:" + formulario.kilometros.value + "\nTipo de Tarifa:" + tipotarifa + "\nValor Tarifa:" + formulario.tipotarifa.value+ "\nRetención:" + retencion+ "\nGanancia Mujeres en Ruta:" + gananciamer+ "\nPago Conductora:" + pagoconductora+ "\nPago Pasajera:" + pagopasajera);
 	}
